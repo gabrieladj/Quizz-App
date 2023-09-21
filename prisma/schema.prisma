@@ -16,3 +16,4 @@ model Users {
   password    String
   isTeacher   Boolean @default(false)
 }
+
