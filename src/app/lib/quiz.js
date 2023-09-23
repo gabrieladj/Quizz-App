@@ -4,9 +4,24 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export async function list_users() {
-  let users = await prisma.Users.findMany();
-  return users;
+
+export async function list_questions() {
+  let questions = await prisma.Questions.findMany();
+  return questions;
+}
+
+export async function get_question(id) {
+  let question = await prisma.Questions.findUnique({
+    where: { id }
+  });
+  return question;
+}
+
+export async function get_answer(id) {
+  let question = await prisma.Questions.findUnique({
+    where: { id }
+  });
+  return question.id;
 }
 
 {/*

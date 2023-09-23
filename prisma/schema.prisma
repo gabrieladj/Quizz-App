@@ -10,10 +10,19 @@ datasource db {
   url      = "file:./dev.db"
 }
 
-model Users {
-  user_id     Int @id @default(autoincrement())
-  username    String
-  password    String
-  isTeacher   Boolean @default(false)
+model Students {
+  user_id         Int @id @default(autoincrement())
+  name            String @unique
 }
 
+model Questions {
+  id              Int @id @default(autoincrement())
+  content         String
+  correct_answer  Boolean @default(false)
+}
+
+model Answers {
+  student_id      Int @id
+  content         String
+  correct_answer   Boolean @default(true)
+}
