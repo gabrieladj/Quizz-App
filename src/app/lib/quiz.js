@@ -6,22 +6,28 @@ const prisma = new PrismaClient();
 
 
 export async function list_questions() {
-  let questions = await prisma.Questions.findMany();
+  let questions = await prisma.Question.findMany();
   return questions;
 }
 
 export async function get_question(id) {
-  let question = await prisma.Questions.findUnique({
+  let question = await prisma.Question.findUnique({
     where: { id }
   });
   return question;
 }
 
 export async function get_answer(id) {
-  let question = await prisma.Questions.findUnique({
+  let question = await prisma.Question.findUnique({
     where: { id }
   });
   return question.id;
+}
+
+export async function create_question(question) {
+  await prisma.Question.create({ 
+    data: question
+  });
 }
 
 {/*
