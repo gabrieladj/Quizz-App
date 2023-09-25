@@ -5,7 +5,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export async function list_users() {
-  let users = await prisma.Users.findMany();
+  let users = await prisma.User.findMany();
   return users;
 }
 

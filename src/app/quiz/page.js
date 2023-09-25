@@ -16,6 +16,9 @@ export default async function Jokes() {
   return (
     <main className="text-center min-h-screen">
       <h1 className="text-2xl py-8">Take the Quiz</h1>
+      <p><Link className="text-sky-700 underline" href="/create-quiz/new-question">Add Question</Link></p>
+      <br />
+      <br />
       <label>
         Name:
         <input type="text" name="name" />
