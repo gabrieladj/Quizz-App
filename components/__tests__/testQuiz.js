@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import QuizPage from '../quiz/page'; // Import our component
 
 test('renders quiz page', () => {
-  render(<QuizPage />);
+  render(<Quiz />);
 
   // Use queries from @testing-library/react to assert on your component's behavior
   const heading = screen.getByText(/Quiz/);
