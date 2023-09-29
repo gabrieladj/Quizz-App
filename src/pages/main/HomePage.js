@@ -1,8 +1,8 @@
 'use client'
 import React from "react";
 import { useState } from "react";
-import Popup from "./components/Popup";
-import TeacherPopup from "./components/TeacherPopup";
+import Popup from "../components/Popup";
+import TeacherPopup from "../components/TeacherPopup";
 const HomePage = () =>{
     
     const[popOpen,setpopOpen] =  useState(false);

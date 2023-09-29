@@ -9,6 +9,14 @@ export async function list_users() {
   return users;
 }
 
+export async function validate_login(name, password){
+  let userStudent =  await prisma.UserStudent.findUnique({
+    where: {name}
+  });
+  return (userStudent.password === password)
+  
+}
+
 {/*
 export async function get_joke(id) {
   let joke = await prisma.joke.findUnique({
