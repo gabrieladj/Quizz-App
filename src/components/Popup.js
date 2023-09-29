@@ -1,39 +1,29 @@
 'use client'
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import Jokes from "../../app/quiz/page";
+import Jokes from "../app/quiz/page";
+import axios from "axios";
 
-function TeacherPopup({isOpen,onClose,onSubmit}){
+
+
+function Popup({isOpen,onClose,onSubmit}){
     const  [username,setUsername] = useState("");
     const  [password,setPassword] = useState("");
+    const router = useRouter()
+
     //const router = useRouter();
     
     const handleSubmit = async (e) => {
-        e.preventDefault();
+      e.preventDefault()
+      const res = await axios.post('/api/login', { username,password})
+      console.log(res.data)
+      router.push('/quiz')
+      
+        //if(res.status === 200){
+        //  router.push('/quiz')
+        //} 
+    }
     
-        try {
-          const response = await fetch('/login', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, password }),
-          });
-    
-          if (response.status === 200) {
-            
-            console.log('Login Success');
-            // Redirect to dashboard or home page upon successful login
-            // You can use router.push('/dashboard') from 'next/router'
-            <Jokes />
-          } else {
-            
-            console.error('Login failed');
-          }
-        } catch (error) {
-          console.error('Network or server error:', error);
-        }
-      };
     return (
         <div className={`popup ${isOpen?'active':''}`}>
             <div className="popup-content">
@@ -41,12 +31,13 @@ function TeacherPopup({isOpen,onClose,onSubmit}){
                 <h2>Student Login In</h2>
                 {/*content goes here*/}
                 <div>
-                    <form onSubmit={handleSubmit}>
+                    <form  onClick={handleSubmit}>
                        <div>
                             <label>Username:</label>
                             <input 
                                 type="text"
                                 value={username}
+                                
                                 onChange={(e) => setUsername(e.target.value)}
                             />    
                        </div>
@@ -54,6 +45,7 @@ function TeacherPopup({isOpen,onClose,onSubmit}){
                             <label>Password:</label>
                             <input 
                                 type="password"
+                                
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />    
@@ -68,4 +60,4 @@ function TeacherPopup({isOpen,onClose,onSubmit}){
         </div>
     );
 }
-export default TeacherPopup;
+export default Popup;
