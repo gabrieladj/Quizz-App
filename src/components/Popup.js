@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import Jokes from "../app/quiz/page";
+import Jokes from "../app/quiz_/page";
 import axios from "axios";
 
 
@@ -19,9 +19,9 @@ function Popup({isOpen,onClose,onSubmit}){
       console.log(res.data)
       router.push('/quiz')
       
-        //if(res.status === 200){
-        //  router.push('/quiz')
-        //} 
+        if(res.status === 200){
+          router.push('/quiz')
+        } 
     }
     
     return (

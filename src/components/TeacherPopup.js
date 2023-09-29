@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import Jokes from "../app/quiz/page";
+import Jokes from "../app/quiz_/page";
 
 function TeacherPopup({isOpen,onClose,onSubmit}){
     const  [username,setUsername] = useState("");
