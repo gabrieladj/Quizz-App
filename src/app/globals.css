@@ -17,7 +17,7 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
+  
   background: linear-gradient(
       to bottom,
       transparent,
@@ -52,7 +52,22 @@ body {
   position: relative;
 }
 
+.teacher-popup-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  position: relative;
+}
+
 .popup-content button{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: black;
+  color: white;
+  
+}
+
+.teacher-popup-content button{
   margin-top: 10px;
   margin-bottom: 10px;
   background-color: black;
@@ -71,9 +86,7 @@ body {
   cursor: pointer;
 }
 
-.teacher-popup-content{
-  background-color: white;
-}
+
 
 
 

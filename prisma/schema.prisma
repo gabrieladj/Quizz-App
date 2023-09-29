@@ -10,11 +10,16 @@ datasource db {
   url      = "file:./dev.db"
 }
 
-model Student {
+
+
+model UserStudent {
   id     Int      @id @default(autoincrement())
   name   String   @unique
+  email  String   @unique
+  password String 
   Answer Answer[]
 }
+
 
 model Question {
   id            Int      @id @default(autoincrement())
@@ -25,7 +30,7 @@ model Question {
 
 model Answer {
   id            Int         @id @default(autoincrement())
-  student       Student     @relation(fields: [studentId], references: [id])
+  student       UserStudent     @relation(fields: [studentId], references: [id])
   studentId     Int
   question      Question    @relation(fields: [questionId], references: [id])
   questionId    Int
