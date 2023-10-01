@@ -1,13 +1,16 @@
 // pages/index.js
-import { prisma } from "../server/db/client"
+import { prisma } from "../server/db/client";
 import axios from "axios";
 import React, { useState } from 'react';
 
 import Navbar from './main/Navigation';
-import './globals.css'
+import './globals.css';
 import Link from 'next/link';
 
-export default function Quiz({questions}) {
+import {quiz_taken} from "../lib/student-answers"
+import {get_answers} from "../lib/student-answers"
+
+export default function Quiz({questions, submittedAnswers, disabled}) {
   const [answers, setAnswers] = useState({});
 
   const handleAnswerChange = (questionId, answer) => {
@@ -20,34 +23,16 @@ export default function Quiz({questions}) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Validate and process the answers here
-    /*
-    fetch("/submit_quiz", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: `${e.target.name.value}`
-      }),
-    })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    console.log('Answers submitted:', answers);
-    */
+    // process the answers 
     
-    const res = await axios.post('/api/submit_quiz', answers)
-    console.log(res.data)
+    const res = await axios.post('/api/submit_quiz', answers);
+    console.log(res.data);
   };
+
 
   return (
     <div>
-    <Navbar />
+        <Navbar />
         <form onSubmit={handleSubmit}>
         {questions.map((question) => (
         <div key={question.id}>
@@ -56,8 +41,8 @@ export default function Quiz({questions}) {
             True
             <input
                 type="radio"
-                name={`question-${question.id}`}
                 value="true"
+                disabled="${disabled}"
                 onChange={() => handleAnswerChange(question.id, true)}
             />
             </label>
@@ -67,13 +52,16 @@ export default function Quiz({questions}) {
                 type="radio"
                 name={`question-${question.id}`}
                 value="false"
+                disabled="${disabled}"
                 onChange={() => handleAnswerChange(question.id, false)}
             />
             </label>
+            
         </div>
         ))}
             <button className='bg-blue-500 rounded-lg text-
-            \white hover:underline hover:rounded-lg  hover:bg-gray-500 p-2' type="submit">Submit Answers</button>
+            \white hover:underline hover:rounded-lg  hover:bg-gray-500 p-2'
+            type="submit" disabled="${disabled}">Submit Answers</button>
             
     </form>
   </div>
@@ -82,10 +70,15 @@ export default function Quiz({questions}) {
 
 export async function getServerSideProps() {
   const questions = await prisma.question.findMany()
+  const disabled = await quiz_taken(1) // will be changed to students id
+  const submittedAnswers = await get_answers(1, 0) // will be changed to quiz id
+
 
   return {
     props: {
-        questions
+        questions,
+        submittedAnswers,
+        disabled: disabled,
     }
   }
 }
