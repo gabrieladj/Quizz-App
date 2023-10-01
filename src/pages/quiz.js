@@ -40,9 +40,9 @@ export default function Quiz({questions}) {
       });
     console.log('Answers submitted:', answers);
     */
-
-    const res = await axios.post('/api/submit_quiz', { })
-      console.log(res.data)
+    
+    const res = await axios.post('/api/submit_quiz', answers)
+    console.log(res.data)
   };
 
   return (
