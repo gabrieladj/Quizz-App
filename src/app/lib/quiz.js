@@ -1,4 +1,4 @@
-// lib/jokes.js
+
 
 import { PrismaClient } from '@prisma/client';
 

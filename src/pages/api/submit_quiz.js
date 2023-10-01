@@ -16,14 +16,11 @@ export default async function handler(req, res) {
         },
       })
       if(password === post.password){
-        
         console.log('login successful');
-        
       }
       */
-      console.log("Answers: ");
-
-      console.log(req.body);
+      // console.log("Answers: ");
+      // console.log(req.body);
       const body = req.body
 
       Object.keys(body).forEach(function(key) {
