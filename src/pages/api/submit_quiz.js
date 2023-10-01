@@ -1,5 +1,5 @@
-import { prisma } from "../../server/db/client"
 
+import {submit_answer} from "../../lib/student-answers"
 
 
 export default async function handler(req, res) {
@@ -21,9 +21,22 @@ export default async function handler(req, res) {
         
       }
       */
-      
-      res.status(200).json({ message: 'Returned from quiz submit' })
+      console.log("Answers: ");
 
+      console.log(req.body);
+      const body = req.body
+
+      Object.keys(body).forEach(function(key) {
+        //arr.push(body[key]);
+        submit_answer({
+          studentId: 1,
+          questionId: parseInt(key),
+          answer: body[key],
+        })
+      });
+      
+      res.status(200).json({ message: "Returned from quiz submit" })
+      
       break
     default:
       res.setHeader("Allow", ["POST"])
