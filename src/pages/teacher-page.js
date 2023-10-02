@@ -6,10 +6,7 @@ import axios from 'axios';
 function QuizForm() {
   const [quizName, setQuizName] = useState('');
   const [questionCount, setQuestionCount] = useState(1); // Default to 1 question
-  const [questions, setQuestions] = useState([{ question: '', answers: [''] }]);
-
-
-  
+  const [questions, setQuestions] = useState([{ question: '', answer: false }]);
 
   const handleQuizNameChange = (e) => {
     setQuizName(e.target.value);
@@ -19,7 +16,7 @@ function QuizForm() {
     const count = parseInt(e.target.value);
     setQuestionCount(count);
     // Initialize questions array with the specified number of questions
-    const initialQuestions = Array(count).fill({ question: '', answers: [''] });
+    const initialQuestions = Array(count).fill({ question: '', answer: false });
     setQuestions(initialQuestions);
   };
 
@@ -30,14 +27,14 @@ function QuizForm() {
   };
 
   
-  const handleAnswerChange = (e, questionIndex, answerIndex) => {
+  const handleAnswerChange = (questionIndex, answer) => {
     const updatedQuestions = [...questions];
-    updatedQuestions[questionIndex].answers[answerIndex] = e.target.value;
+    updatedQuestions[questionIndex].answer = answer;
     setQuestions(updatedQuestions);
   };
 
   const addQuestion = () => {
-    setQuestions([...questions, { question: '', answers: [''] }]);
+    setQuestions([...questions, { question: '', answer: false }]);
     setQuestionCount(questionCount + 1);
   };
 
@@ -86,23 +83,26 @@ function QuizForm() {
               onChange={(e) => handleQuestionChange(e, index)}
               required
             />
-            {question.answers.map((answer, answerIndex) => (
-              <div key={answerIndex}>
-                <label>Answer {answerIndex + 1}:</label>
-                <input
-                  type="text"
-                  value={answer}
-                  onChange={(e) => handleAnswerChange(e, index, answerIndex)}
-                  required
-                />
-                <input
+            <br />
+            <label>
+            True
+            <input
                 type="radio"
+                name={`question-${index}`}
                 value="true"
-                disabled="${disabled}"
-                onChange={() => handleAnswerChange(question.id, true)}
+                defaultChecked
+                onChange={() => handleAnswerChange(index, true)}
             />
-              </div>
-            ))}
+            </label>
+            <label>
+            False
+            <input
+                type="radio"
+                name={`question-${index}`}
+                value="false"
+                onChange={() => handleAnswerChange(index, false)}
+            /> 
+            </label>
           </div>
         ))}
         <button type="button" onClick={addQuestion}>

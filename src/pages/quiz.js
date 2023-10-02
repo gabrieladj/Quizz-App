@@ -54,7 +54,7 @@ export default function Quiz({questions, submittedAnswers, disabled}) {
                 value="false"
                 disabled="${disabled}"
                 onChange={() => handleAnswerChange(question.id, false)}
-            />
+            /> 
             </label>
             
         </div>
@@ -72,8 +72,12 @@ export async function getServerSideProps() {
   const questions = await prisma.question.findMany()
   const disabled = await quiz_taken(1) // will be changed to students id
   const submittedAnswers = await get_answers(1, 0) // will be changed to quiz id
-
-
+  /*
+  Object.keys(submittedAnswers).forEach(function(key) {
+    if (submittedAnswers[key] == 
+  });
+  */
+  
   return {
     props: {
         questions,
