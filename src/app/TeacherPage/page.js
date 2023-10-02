@@ -1,10 +1,15 @@
 'use client'
 import React, { useState } from 'react';
+import axios from 'axios';
+
 
 function QuizForm() {
   const [quizName, setQuizName] = useState('');
   const [questionCount, setQuestionCount] = useState(1); // Default to 1 question
   const [questions, setQuestions] = useState([{ question: '', answers: [''] }]);
+
+
+  
 
   const handleQuizNameChange = (e) => {
     setQuizName(e.target.value);
@@ -24,6 +29,7 @@ function QuizForm() {
     setQuestions(updatedQuestions);
   };
 
+  
   const handleAnswerChange = (e, questionIndex, answerIndex) => {
     const updatedQuestions = [...questions];
     updatedQuestions[questionIndex].answers[answerIndex] = e.target.value;
@@ -44,12 +50,13 @@ function QuizForm() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const quizData = {
-      quizName,
-      questions,
+      quiz_name : quizName,
+      quiz_question : questions,
     };
+    const res  =  await axios.post('/api/create-quiz',quizData)
     console.log(quizData); // You can send this data to the backend for saving
   };
 
@@ -88,6 +95,12 @@ function QuizForm() {
                   onChange={(e) => handleAnswerChange(e, index, answerIndex)}
                   required
                 />
+                <input
+                type="radio"
+                value="true"
+                disabled="${disabled}"
+                onChange={() => handleAnswerChange(question.id, true)}
+            />
               </div>
             ))}
           </div>

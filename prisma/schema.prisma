@@ -19,12 +19,19 @@ model UserStudent {
   Answer     Answer[]
 }
 
+model Quiz {
+  id        Int         @id @default(autoincrement())
+  quizName  String
+  questions Question[]
+}
 
 model Question {
   id            Int      @id @default(autoincrement())
   content       String
   correctAnswer Boolean  @default(false)
   Answer        Answer[]
+  quizId        Int
+  quiz          Quiz      @relation(fields:[quizId],references:[id])
 }
 
 model Answer {
