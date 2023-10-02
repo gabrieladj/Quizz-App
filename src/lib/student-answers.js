@@ -1,5 +1,5 @@
 import { prisma } from "../server/db/client";
-import { get_answer } from "../app/lib/quiz"
+import { get_answer } from "./quiz"
 
 export async function submit_answer(answer) {
     await prisma.Answer.create({ 

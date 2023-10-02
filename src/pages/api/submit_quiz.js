@@ -19,16 +19,18 @@ export default async function handler(req, res) {
         console.log('login successful');
       }
       */
-      // console.log("Answers: ");
-      // console.log(req.body);
-      const body = req.body
+       console.log("Body: ");
+       console.log(req.body);
+      const body = req.body['answers']
+      const quizId = req.body['quizId']
 
       Object.keys(body).forEach(function(key) {
         //arr.push(body[key]);
         submit_answer({
-          studentId: 1,
           questionId: parseInt(key),
           answer: body[key],
+          quizId: quizId,
+          studentId: 1,
         })
       });
       

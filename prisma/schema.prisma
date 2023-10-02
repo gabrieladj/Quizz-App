@@ -16,13 +16,14 @@ model UserStudent {
   id         Int      @id @default(autoincrement())
   username   String   @unique
   password   String 
-  Answer     Answer[]
+  answer     Answer[]
 }
 
 model Quiz {
   id        Int         @id @default(autoincrement())
   quizName  String
   questions Question[]
+  answers Answer[]
 }
 
 model Question {
@@ -35,10 +36,12 @@ model Question {
 }
 
 model Answer {
-  id            Int         @id @default(autoincrement())
-  student       UserStudent     @relation(fields: [studentId], references: [id])
+  id            Int           @id @default(autoincrement())
+  student       UserStudent   @relation(fields: [studentId], references: [id])
   studentId     Int
-  question      Question    @relation(fields: [questionId], references: [id])
+  question      Question      @relation(fields: [questionId], references: [id])
   questionId    Int
-  answer        Boolean     @default(true)
+  quiz          Quiz          @relation(fields: [quizId], references: [id])
+  quizId        Int
+  answer        Boolean       @default(true)
 }
