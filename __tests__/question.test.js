@@ -7,7 +7,7 @@ afterAll(async () => {
 
 describe('Question Model', () => {
   it('should create a question', async () => {
-    const Question = await prisma.question.create({
+    const Question = await prisma.NewQuestion.create({
       data: {
         content: 'Is this a test question?',
       },
