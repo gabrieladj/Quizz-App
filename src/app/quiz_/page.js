@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 
-import { list_questions } from '../lib/quiz';
+import { list_questions } from '../../lib/quiz';
 
 export default async function Jokes() {
   let questions = await list_questions();

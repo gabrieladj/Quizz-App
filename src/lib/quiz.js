@@ -10,9 +10,10 @@ export async function list_questions() {
   return questions;
 }
 
-export async function get_question(id) {
-  let question = await prisma.Question.findUnique({
-    where: { id }
+
+export async function get_questions(quizId) {
+  let question = await prisma.Question.findMany({
+    where: { quizId: quizId }
   });
   return question;
 }

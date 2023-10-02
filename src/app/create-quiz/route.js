@@ -2,7 +2,7 @@
 
 import { NextResponse } from 'next/server';
 
-import { create_question } from '../lib/quiz';
+import { create_question } from '../../lib/quiz';
 
 export async function POST(request) {
   let data = await request.formData();
