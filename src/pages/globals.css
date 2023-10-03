@@ -17,15 +17,19 @@
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
   
   background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
-    rgb(var(--background-start-rgb));
-    background-color: gray;
-    color:white;
+    
+  
+    
 }
 
 
@@ -87,7 +91,12 @@ body {
   cursor: pointer;
 }
 
-
+footer {
+  background: black;
+  color: white;
+  text-align: center;
+  padding:'1rem';
+}
 
 
 

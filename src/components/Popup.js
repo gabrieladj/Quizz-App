@@ -17,7 +17,7 @@ function Popup({isOpen,onClose,onSubmit}){
       e.preventDefault()
       const res = await axios.post('/api/login', { username,password})
       console.log(res.data)
-      router.push('/quiz')
+      router.push('/list-quiz')
       
         if(res.status === 200){
           router.push('/quiz')
@@ -31,7 +31,7 @@ function Popup({isOpen,onClose,onSubmit}){
                 <h2>Student Login In</h2>
                 {/*content goes here*/}
                 <div>
-                    <form  onClick={handleSubmit}>
+                    <form  onSubmit={handleSubmit}>
                        <div>
                             <label>Username:</label>
                             <input 

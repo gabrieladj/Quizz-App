@@ -2,14 +2,16 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Jokes from "../app/quiz_/page";
+import axios from "axios";
 
 function TeacherPopup({isOpen,onClose,onSubmit}){
     const  [username,setUsername] = useState("");
     const  [password,setPassword] = useState("");
-    //const router = useRouter();
+    const router = useRouter()
     
     const handleSubmit = async (e) => {
         e.preventDefault();
+
     
         try {
           const response = await fetch('/login', {
@@ -38,7 +40,7 @@ function TeacherPopup({isOpen,onClose,onSubmit}){
         <div className={`popup ${isOpen?'active':''}`}>
             <div className="popup-content">
                 <span className="close" onClick={onClose}>&times;</span>
-                <h2>Student Login In</h2>
+                <h2>Teacher Login In</h2>
                 {/*content goes here*/}
                 <div>
                     <form onSubmit={handleSubmit}>

@@ -43,35 +43,34 @@ export default function Quiz({quizId, questions, submittedAnswers, disabled}) {
   return (
     <div>
         <Navbar />
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="max-w-xl mx-auto p-4">
         {questions.map((question) => (
-        <div key={question.id}>
-            <p>{question.content}</p>
-            <label>
+        <div key={question.id} className="mb-4">
+            <p className="text-lg font-semibold">{question.content}</p>
+            <label className="space-x-4 inline-flex items-center">
             True
             <input
                 type="radio"
                 name={`question-${question.id}`}
                 value="true"
                 disabled={disabled}
-                onChange={() => handleAnswerChange(question.id, true)}
+                onChange={() => handleAnswerChange(question.id, true)} className="form-radio text-blue-500"
             />
             </label>
-            <label>
+            <label className="space-x-4 inline-flex items-center">
             False
             <input
                 type="radio"
                 name={`question-${question.id}`}
                 value="false"
                 disabled={disabled}
-                onChange={() => handleAnswerChange(question.id, false)}
+                onChange={() => handleAnswerChange(question.id, false) } className="form-radio text-blue-500"
             /> 
             </label>
             <br /><br />
         </div>
         ))}
-            <button className='bg-blue-500 rounded-lg text-
-            \white hover:underline hover:rounded-lg  hover:bg-gray-500 p-2'
+            <button className='bg-blue-500 text-white hover:bg-gray-500 rounded-lg py-2 px-4'
             type="submit" disabled={disabled}>Submit Answers</button>
             
     </form>
@@ -82,7 +81,7 @@ export default function Quiz({quizId, questions, submittedAnswers, disabled}) {
 export async function getServerSideProps(context) {
   // get the dynamic route variable for quiz id
   const quizId = parseInt(context.params.quiz)
-  const questions = await get_questions(1)
+  const questions = await get_questions(quizId)
   
   const disabled = await quiz_taken(1, quizId) // will be changed to students id
   
