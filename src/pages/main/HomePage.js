@@ -53,6 +53,14 @@ const HomePage = () =>{
                         
                         <Popup isOpen={popOpen} onClose={closePopup} onSubmit={handlePopup}/>
                     </div>
+                    <br />
+                    <br />
+                    <div>
+                        <a href="/list-quiz" ><button className="rounded-lg bg-blue-300 px-6 py-3 text-left">Student<p>Take Quizes</p></button></a>
+                    </div>
+                    <div>
+                        <a href="/teacher-page" ><button className="rounded-lg bg-gray-300 px-6 py-3 text-left">Teacher<p>Create Quizes</p></button></a>    
+                    </div>
                 </div>
             </div>
 
