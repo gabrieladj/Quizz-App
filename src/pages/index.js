@@ -13,7 +13,6 @@ export default function Home(){
     <div>
       <Navbar />
       <HomePage />
-      <Footer />
     </div>
 
 
