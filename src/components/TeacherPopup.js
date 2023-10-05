@@ -1,7 +1,6 @@
 'use client'
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import Jokes from "../app/quiz_/page";
 import axios from "axios";
 
 function TeacherPopup({isOpen,onClose,onSubmit}){
@@ -27,7 +26,7 @@ function TeacherPopup({isOpen,onClose,onSubmit}){
             console.log('Login Success');
             // Redirect to dashboard or home page upon successful login
             // You can use router.push('/dashboard') from 'next/router'
-            <Jokes />
+            router.push('/list-quiz')
           } else {
             
             console.error('Login failed');

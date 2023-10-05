@@ -1,7 +1,6 @@
 'use client'
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import Jokes from "../app/quiz_/page";
 import axios from "axios";
 
 
