@@ -1,5 +1,5 @@
 import get_quiz from "@/lib/get-quiz";
-import '../list-quiz/index.css'
+import './index.css'
 export default async function ListQuiz() {
   let quizlist = await get_quiz();
 
