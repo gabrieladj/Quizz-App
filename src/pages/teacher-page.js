@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './globals.css';
-import Navbar from './main/Navigation';
+import Navbar from '../components/Navigation';
 function QuizForm() {
   const [quizName, setQuizName] = useState('');
   const [questionCount, setQuestionCount] = useState(1);

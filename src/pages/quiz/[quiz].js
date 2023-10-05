@@ -3,7 +3,7 @@ import { prisma } from "../../server/db/client";
 import axios from "axios";
 import React, { useState } from 'react';
 
-import Navbar from '../main/Navigation';
+import Navbar from '../../components/Navigation';
 import '../globals.css';
 import Link from 'next/link';
 import { useRouter } from 'next/router'
