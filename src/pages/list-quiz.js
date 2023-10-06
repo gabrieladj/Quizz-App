@@ -1,8 +1,9 @@
 import get_quiz from "@/lib/get-quiz";
-import './index.css'
-export default async function ListQuiz() {
-  let quizlist = await get_quiz();
+import './list-quiz.css'
 
+
+export default function ListQuiz({ quizlist }) {
+  
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
       <h1 className="text-3xl font-semibold mb-6">Available Quizzes</h1>
@@ -17,4 +18,12 @@ export default async function ListQuiz() {
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  // Fetch data from external API
+  let quizlist = await get_quiz();
+ 
+  // Pass data to the page via props
+  return { props: { quizlist } }
 }

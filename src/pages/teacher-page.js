@@ -5,7 +5,7 @@ import Navbar from '../components/Navigation';
 function QuizForm() {
   const [quizName, setQuizName] = useState('');
   const [questionCount, setQuestionCount] = useState(1);
-  const [questions, setQuestions] = useState([{ question: '', answer: false }]);
+  const [questions, setQuestions] = useState([{ question: '', answer: true }]);
   const [quizCreated, setQuizCreated] = useState(false); // Flag to track quiz creation
 
   const handleQuizNameChange = (e) => {
@@ -16,12 +16,14 @@ function QuizForm() {
     const count = parseInt(e.target.value);
     setQuestionCount(count);
     // Initialize questions array with the specified number of questions
-    const initialQuestions = Array(count).fill({ question: '', answer: false });
+    const initialQuestions = Array.from({length: count}, () => ({question: '', answer: true}));
     setQuestions(initialQuestions);
   };
 
   const handleQuestionChange = (e, index) => {
+    //console.log(index)
     const updatedQuestions = [...questions];
+    //console.log(updatedQuestions)
     updatedQuestions[index].question = e.target.value;
     setQuestions(updatedQuestions);
   };
@@ -31,6 +33,7 @@ function QuizForm() {
     const updatedQuestions = [...questions];
     updatedQuestions[questionIndex].answer = answer;
     setQuestions(updatedQuestions);
+    console.log(questions);
   };
 
   const addQuestion = () => {
