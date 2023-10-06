@@ -16,6 +16,6 @@ describe('Home', () => {
     //   name: /welcome to next\.js!/i,
     // })
 
-    expect(screen.getByText("Practise the Quizz and get smarter")).toBeInTheDocument()
+    expect(screen.getByText("Practice the Quiz and get smarter")).toBeInTheDocument()
   });
 });

@@ -2,7 +2,7 @@
 import React from "react";
 import { useState } from "react";
 import Popup from "@/components/Popup";
-import TeacherPopup from "@/components//TeacherPopup";
+import TeacherPopup from "@/components/TeacherPopup";
 const HomePage = () =>{
     
     const[popOpen,setpopOpen] =  useState(false);
@@ -36,8 +36,8 @@ const HomePage = () =>{
     return (
         <main>
             <div className="m-10 p-10" >
-            <h1 className="text-center font-semibold "> Practise the Quizz and get smarter</h1>
-            <p className="text-center">Assessment, instruction, and practise htat motivate every student</p>
+            <h1 className="text-center font-semibold "> Practice the Quiz and get smarter</h1>
+            <p className="text-center">Assessment, instruction, and practice that motivates every student</p>
             
             </div>
 
