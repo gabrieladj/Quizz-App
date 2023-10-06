@@ -26,7 +26,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm install
+    - run: npm install > output.txt
     - run: npx jest --all --ci
     - run: npm run build
     - run: sudo systemctl restart next-app
