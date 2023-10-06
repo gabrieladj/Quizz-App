@@ -45,6 +45,7 @@ const HomePage = () =>{
             <div className="buttons-container flex justify-center">
                 <div className="inline-grid gap-2 grid-cols-2">
                     <div>
+                        
                         <button href="/" onClick={openTeacherPopup} className="rounded-lg bg-blue-300 px-6 py-3 text-left">Teacher<p>Sign Up for free</p></button>
                         <TeacherPopup isOpen={openPop} onClose={closeTeacherPopup} onSubmit={handlePopup}/>
                     </div>
