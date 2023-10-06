@@ -22,7 +22,7 @@ function Popup({isOpen,onClose,onSubmit}){
           router.push('/quiz')
         } 
     }
-    
+    // Yo wahts up
     return (
         <div className={`popup ${isOpen?'active':''}`}>
             <div className="popup-content">
