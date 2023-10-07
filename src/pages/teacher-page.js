@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './globals.css';
-import Navbar from '../components/Navigation';
+
 function QuizForm() {
   const [quizName, setQuizName] = useState('');
   const [questionCount, setQuestionCount] = useState(1);
@@ -74,7 +74,6 @@ function QuizForm() {
   };
   return (
     <div>
-      <Navbar />
     
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
         
