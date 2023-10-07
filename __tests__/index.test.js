@@ -1,5 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import Home from '@/pages/index';
+import HomePage from '@/components/HomePage';
+import Navbar from '@/components/Navigation';
 import '@testing-library/jest-dom';
 import { useRouter } from 'next/router'
 
@@ -7,10 +9,10 @@ jest.mock('next/router', () => ({
   useRouter: jest.fn()
 }))
  
-describe('Home', () => {
-  //useRouter.mockReturnValue({ query: {}})
+describe('HomePage', () => {
+  useRouter.mockReturnValue({ query: {}})
   it('renders a heading', () => {
-    render(<Home />)
+    render(<HomePage />)
 
     // const heading = screen.getByRole('heading', {
     //   name: /welcome to next\.js!/i,
