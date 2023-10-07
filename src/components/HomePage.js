@@ -1,34 +1,32 @@
 'use client'
 import React from "react";
 import { useState } from "react";
-import Popup from "@/components/Popup";
-import TeacherPopup from "@/components/TeacherPopup";
+import StudentLoginPopup from "@/components/StudentLoginPopup";
+import TeacherLoginPopup from "@/components/TeacherLoginPopup";
 const HomePage = () =>{
     
-    const[popOpen,setpopOpen] =  useState(false);
-    const[openPop,setopenPop] = useState(false);
+    const[studentLoginPopOpen,setStudentLoginPopOpen] =  useState(false);
+    const[teacherLoginPopOpen,setTeacherLoginPopOpen] = useState(false);
 
-    const openTeacherPopup = () => {
+    const openTeacherLoginPopup = () => {
         
-        setopenPop(true);
+        setTeacherLoginPopOpen(true);
     }
-    const closeTeacherPopup = () =>{
+    const closeTeacherLoginPopup = () =>{
         
-        setopenPop(false);
+        setTeacherLoginPopOpen(false);
     }
 
-    const openPopup = () => {
-        setpopOpen(true);
-        setopenPop(true);
+    const openStudentLoginPopup = () => {
+        setStudentLoginPopOpen(true);
     }
-    const closePopup = () =>{
-        setpopOpen(false);
-        setopenPop(false);
+    const closeStudentLoginPopup = () =>{
+        setStudentLoginPopOpen(false);
     }
 
     const handlePopup = () => {
-        closePopup();
-        closeTeacherPopup();
+        closeStudentLoginPopup();
+        closeTeacherLoginPopup();
     }
 
 
@@ -41,18 +39,17 @@ const HomePage = () =>{
             
             </div>
 
-
             <div className="buttons-container flex justify-center">
                 <div className="inline-grid gap-2 grid-cols-2">
                     <div>
                         
-                        <button href="/" onClick={openTeacherPopup} className="rounded-lg bg-blue-300 px-6 py-3 text-left">Teacher<p>Sign Up for free</p></button>
-                        <TeacherPopup isOpen={openPop} onClose={closeTeacherPopup} onSubmit={handlePopup}/>
+                        <button href="/" onClick={openTeacherLoginPopup} className="rounded-lg bg-blue-300 px-6 py-3 text-left">Teacher<p>Sign Up for free</p></button>
+                        <TeacherLoginPopup isOpen={teacherLoginPopOpen} onClose={closeTeacherLoginPopup} onSubmit={handlePopup}/>
                     </div>
                     <div>
-                        <button href="/" onClick={openPopup} className="rounded-lg bg-gray-300 px-6 py-3 text-left">Student<p>Login as student</p></button>
+                        <button href="/" onClick={openStudentLoginPopup} className="rounded-lg bg-gray-300 px-6 py-3 text-left">Student<p>Login as student</p></button>
                         
-                        <Popup isOpen={popOpen} onClose={closePopup} onSubmit={handlePopup}/>
+                        <StudentLoginPopup isOpen={studentLoginPopOpen} onClose={closeStudentLoginPopup} onSubmit={handlePopup}/>
                     </div>
                     <br />
                     <br />

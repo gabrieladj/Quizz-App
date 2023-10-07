@@ -5,24 +5,25 @@ import axios from "axios";
 
 
 
-function Popup({isOpen,onClose,onSubmit}){
+function StudentLoginPopup({isOpen,onClose,onSubmit}){
     const  [username,setUsername] = useState("");
     const  [password,setPassword] = useState("");
     const router = useRouter()
 
-    //const router = useRouter();
-    
     const handleSubmit = async (e) => {
-      e.preventDefault()
-      const res = await axios.post('/api/login', { username,password})
-      console.log(res.data)
-      router.push('/list-quiz')
-      
-        if(res.status === 200){
-          router.push('/quiz')
-        } 
+        e.preventDefault()
+        try {
+            const res = await axios.post('/api/signup', { username,password});
+            console.log("Login Successful");
+        } catch (error) {
+            console.log(error);
+            if (error.response && error.response.data && error.response.data.message)
+                alert(error.response.data.message);
+            else
+                alert("Unknown error occurred");
+        }
     }
-    // Yo wahts up
+
     return (
         <div className={`popup ${isOpen?'active':''}`}>
             <div className="popup-content">
@@ -59,4 +60,4 @@ function Popup({isOpen,onClose,onSubmit}){
         </div>
     );
 }
-export default Popup;
+export default StudentLoginPopup;
