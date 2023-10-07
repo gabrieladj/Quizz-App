@@ -1,6 +1,6 @@
 import get_quiz from "@/lib/get-quiz";
 import './list-quiz.css'
-
+import { withSessionSsr } from "@/lib/session";
 
 export default function ListQuiz({ quizlist }) {
   
@@ -20,10 +20,21 @@ export default function ListQuiz({ quizlist }) {
   );
 }
 
-export async function getServerSideProps() {
+export const getServerSideProps = withSessionSsr(async function ({ req, res }) {
+  
+  if (req.session.user) {
+    const user = req.session.user.username;
+    const userId = req.session.user.userId;
+    console.log("Username: " + user);
+    console.log("UserID: " + userId);
+  }
+  else {
+    console.log("user not logged in");
+  }
+
   // Fetch data from external API
   let quizlist = await get_quiz();
  
   // Pass data to the page via props
   return { props: { quizlist } }
-}
+});

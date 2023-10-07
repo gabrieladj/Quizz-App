@@ -3,38 +3,38 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 
-function TeacherPopup({isOpen,onClose,onSubmit}){
+function TeacherLoginPopup({isOpen,onClose,onSubmit}){
     const  [username,setUsername] = useState("");
     const  [password,setPassword] = useState("");
     const router = useRouter()
     
     const handleSubmit = async (e) => {
-        e.preventDefault();
+      e.preventDefault();
 
-    
-        try {
-          const response = await fetch('/login', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, password }),
-          });
-    
-          if (response.status === 200) {
-            
-            console.log('Login Success');
-            // Redirect to dashboard or home page upon successful login
-            // You can use router.push('/dashboard') from 'next/router'
-            router.push('/list-quiz')
-          } else {
-            
-            console.error('Login failed');
-          }
-        } catch (error) {
-          console.error('Network or server error:', error);
+
+      try {
+        const response = await fetch('/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+        });
+
+        if (response.status === 200) {
+          
+          console.log('Login Success');
+          // Redirect to dashboard or home page upon successful login
+          // You can use router.push('/dashboard') from 'next/router'
+          router.push('/list-quiz')
+        } else {
+          
+          console.error('Login failed');
         }
-      };
+      } catch (error) {
+        console.error('Network or server error:', error);
+      }
+    };
     return (
         <div className={`popup ${isOpen?'active':''}`}>
             <div className="popup-content">
@@ -69,4 +69,4 @@ function TeacherPopup({isOpen,onClose,onSubmit}){
         </div>
     );
 }
-export default TeacherPopup;
+export default TeacherLoginPopup;
