@@ -1,12 +1,9 @@
 // pages/index.js
-import { prisma } from "../../server/db/client";
 import axios from "axios";
 import React, { useState } from 'react';
 
 import Navbar from '../../components/Navigation';
 import '../globals.css';
-import Link from 'next/link';
-import { useRouter } from 'next/router'
 
 import {quiz_taken} from "../../lib/student-answers"
 import {get_answers} from "../../lib/student-answers"
@@ -42,7 +39,6 @@ export default function Quiz({quizId, questions, submittedAnswers, disabled}) {
 
   return (
     <div>
-        <Navbar />
         <form onSubmit={handleSubmit} className="max-w-xl mx-auto p-4">
         {questions.map((question) => (
         <div key={question.id} className="mb-4">
@@ -98,6 +94,7 @@ export async function getServerSideProps(context) {
         questions,
         submittedAnswers,
         disabled,
+        
     }
   }
 }
