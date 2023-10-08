@@ -4,6 +4,18 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+export async function get_quizes(){
+  let quiz = await prisma.quiz.findMany(
+      {
+          select: {
+              id : true,
+              quizName : true,
+          }
+      }
+  );
+  return quiz;
+
+} 
 
 export async function list_questions() {
   let questions = await prisma.Question.findMany();
@@ -16,6 +28,12 @@ export async function get_questions(quizId) {
     where: { quizId: quizId }
   });
   return question;
+}
+
+export async function count_questions(quizId) {
+  return await prisma.Question.count({
+    where: { quizId }
+});
 }
 
 export async function get_answer(id) {

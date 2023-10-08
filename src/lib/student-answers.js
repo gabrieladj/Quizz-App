@@ -1,5 +1,5 @@
 import { prisma } from "../server/db/client";
-import { get_answer } from "./quiz"
+import { get_quizes, get_answer, count_questions } from "./quiz"
 
 export async function submit_answer(answer) {
     console.log("Answer: ")
@@ -23,12 +23,47 @@ export async function quiz_taken(studentId, quizId) {
 
 
 export async function get_answers(studentId, quizId) {
-    // add quiz id here when finished
     let answers = await prisma.Answer.findMany({
-        where: { studentId }
+        where: {
+            studentId,
+            quizId 
+        }
     });
-    console.log("Student Answers: ")
-    console.log(answers);
     return answers;
 }
 
+export async function get_scores(studentId) {
+    // get the user and include their answers
+    const user = await prisma.userStudent.findUnique({
+        where: {
+            id: studentId
+        },
+        include: {
+            answer: {
+                include: {
+                    quiz: true,
+                    question: true
+                }
+            }
+        }
+    });
+
+    let userScores = {};
+    if (user) {
+        for (const answer of user.answer) {
+            const quizId = answer.quizId
+            // if theres no index for this quiz yet, create it
+            if (!userScores[quizId]) {
+                
+                let numQuestions = await count_questions(quizId);
+                userScores[quizId] = {score: 0, numQuestions: numQuestions};
+            }
+            // if they got it right, increase score for this quiz
+            if (answer.answer === answer.question.correctAnswer)
+                userScores[quizId].score++;
+        };
+    }
+
+    //console.log(userScores);
+    return userScores;
+}
