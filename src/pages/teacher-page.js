@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './globals.css';
+import Navbar from '@/components/Navigation';
+import { withSessionSsr } from "@/lib/session";
 
-function QuizForm() {
+export default function QuizForm(props) {
   const [quizName, setQuizName] = useState('');
   const [questionCount, setQuestionCount] = useState(1);
   const [questions, setQuestions] = useState([{ question: '', answer: true }]);
@@ -21,9 +23,7 @@ function QuizForm() {
   };
 
   const handleQuestionChange = (e, index) => {
-    //console.log(index)
     const updatedQuestions = [...questions];
-    //console.log(updatedQuestions)
     updatedQuestions[index].question = e.target.value;
     setQuestions(updatedQuestions);
   };
@@ -33,7 +33,6 @@ function QuizForm() {
     const updatedQuestions = [...questions];
     updatedQuestions[questionIndex].answer = answer;
     setQuestions(updatedQuestions);
-    console.log(questions);
   };
 
   const addQuestion = () => {
@@ -59,7 +58,7 @@ function QuizForm() {
 
     try {
       const res = await axios.post('/api/create-quiz', quizData);
-      console.log(quizData); // You can send this data to the backend for saving
+      //console.log(quizData); // You can send this data to the backend for saving
       if (res.status === 200) {
         // Quiz was successfully created
         setQuizCreated(true);
@@ -74,7 +73,7 @@ function QuizForm() {
   };
   return (
     <div>
-    
+      <Navbar data={props}/>
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
         
         <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-md">
@@ -164,4 +163,27 @@ function QuizForm() {
   );
 }
 
-export default QuizForm;
+export const getServerSideProps = withSessionSsr(async function ({ req, res }) {
+  
+  // verify login data
+  if (req.session.user) {
+    const username = req.session.user.username;
+    const userId = req.session.user.userId;
+    return {props: {
+      account: {
+        loggedIn: true,
+        username,
+        userId
+      },
+    }};
+  }
+  else {
+    return {props: {
+      account: {
+        loggedIn: false,
+        username: "",
+        userId: -1
+      }
+    }};
+  }
+});

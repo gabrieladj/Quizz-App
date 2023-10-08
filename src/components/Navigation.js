@@ -12,8 +12,12 @@ export default function Navbar(props) {
   const  [signupPassword,setSignupPassword] = useState("");
 
   console.log(props);
-  const loggedIn = props.data.loggedIn;
-  const username = props.data.username;
+
+  const loggedIn = props.data.account.loggedIn;
+  const username = props.data.account.username;
+  const userId = props.data.account.userId;
+
+  console.log("Logged in bool: "+ loggedIn);
 
   const router = useRouter();
 
@@ -65,7 +69,7 @@ export default function Navbar(props) {
                 {loggedIn &&
                     <li>
                         <Link href="/" >
-                            <button className='p-2'>Account</button>
+                            <button className='p-2'>Account ({username})</button>
                         </Link>
                     </li>
                 }

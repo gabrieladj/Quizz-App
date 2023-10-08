@@ -15,9 +15,7 @@ export default async function handler(req, res) {
         },
       })
       if(password === post.password){
-        
         console.log('login successful');
-        
       }
       res.status(201).json(post)
       break

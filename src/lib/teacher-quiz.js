@@ -17,20 +17,7 @@ export async function create_quiz(quizName, questions) {
         }
       })
     );
-    
     await Promise.all(questionPromises);
-
-    /*
-    questions: {
-              createMany: {
-                data: questions.map((question) => ({
-                  content: question.text,
-                  answer:  question.answer
-                })),
-              },
-        },
-    */
-    
 }
 
 

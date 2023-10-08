@@ -4,18 +4,24 @@ import React, { useState } from 'react';
 
 import Navbar from '../../components/Navigation';
 import '../globals.css';
+import { withSessionSsr } from "@/lib/session";
+import { useRouter } from "next/navigation";
 
 import {quiz_taken} from "../../lib/student-answers"
 import {get_answers} from "../../lib/student-answers"
 import {get_questions} from "@/lib/quiz"
 
-export default function Quiz({quizId, questions, submittedAnswers, disabled}) {
+export default function Quiz(props) {
+  const router = useRouter();
   const [answers, setAnswers] = useState({});
 
-  
-
-  console.log("Disabled: ")
-  console.log(disabled);
+  // get prop data
+  const quizId = props.quizId;
+  const questions = props.questions;
+  const submittedAnswers = props.submittedAnswers;
+  const disabled = props.disabled;
+  const account = {account:props.account};
+  const userId = props.account.userId;
 
   const handleAnswerChange = (questionId, answer) => {
     // Update the answers object with the selected answer
@@ -29,16 +35,18 @@ export default function Quiz({quizId, questions, submittedAnswers, disabled}) {
     e.preventDefault();
     // process the answers 
     const data = {
+      studentId: userId,
       quizId: quizId,
       answers: answers,
     }
     const res = await axios.post('/api/submit_quiz', data);
-    console.log(res.data);
+    router.push("/list-quiz")
   };
 
 
   return (
     <div>
+        <Navbar data={account}/>
         <form onSubmit={handleSubmit} className="max-w-xl mx-auto p-4">
         {questions.map((question) => (
         <div key={question.id} className="mb-4">
@@ -74,27 +82,41 @@ export default function Quiz({quizId, questions, submittedAnswers, disabled}) {
   )
 }
 
-export async function getServerSideProps(context) {
-  // get the dynamic route variable for quiz id
-  const quizId = parseInt(context.params.quiz)
+export const getServerSideProps = withSessionSsr(async function ({ req, res }) {
+  // get quiz id from the url
+  const qid = req.url.split('/').pop();
+  const quizId = parseInt(qid);
   const questions = await get_questions(quizId)
-  
-  const disabled = await quiz_taken(1, quizId) // will be changed to students id
-  
-  const submittedAnswers = await get_answers(1, quizId) // will be changed to quiz id
-  /*
-  Object.keys(submittedAnswers).forEach(function(key) {
-    if (submittedAnswers[key] == 
-  });
-  */
-  
-  return {
-    props: {
-        quizId,
-        questions,
-        submittedAnswers,
-        disabled,
-        
-    }
+
+  // verify login data
+  if (req.session.user) {
+    const username = req.session.user.username;
+    const userId = parseInt(req.session.user.userId);
+    const disabled = await quiz_taken(userId, quizId)
+    const submittedAnswers = await get_answers(userId, quizId)
+    return {props: {
+      quizId,
+      questions,
+      submittedAnswers,
+      disabled,
+      account: {
+        loggedIn: true,
+        username,
+        userId
+      },
+    }};
   }
-}
+  else {
+    return {props: {
+      quizId,
+      questions,
+      submittedAnswers: null,
+      disabled: true,
+      account: {
+        loggedIn: false,
+        username: "",
+        userId: -1
+      }
+    }};
+  }
+});

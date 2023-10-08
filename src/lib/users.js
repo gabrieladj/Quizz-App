@@ -23,10 +23,10 @@ export async function validate_login(name, password){
 export async function userExists(username) {
   let count = await prisma.UserStudent.count({
       where: {
-           username: username
+        username: username
        }
   });
-
+  console.log("COUNT: " + count)
   return (count !== 0);
 }
 
