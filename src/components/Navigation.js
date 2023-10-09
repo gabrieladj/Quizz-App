@@ -2,6 +2,7 @@
 'use client'
 import Link from 'next/link';
 import { useState } from 'react';
+import CreateAccount from '@/components/CreateAccount';
 const Navbar = () => {
 
     const [signVisible,setSignVisible] = useState(false);
@@ -14,8 +15,9 @@ const Navbar = () => {
 
             <ul className='flex space-x-4 mx-3'>
                 <li>
-                    <Link href="/" >
+                    <Link href="/CreateAccount">
                         <button className='p-2'>Account</button>
+                        
                     </Link>
                 </li>
                 <li>
