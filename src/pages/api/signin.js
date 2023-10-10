@@ -1,8 +1,6 @@
 import { withSessionRoute } from "@/lib/session";
 import { hashPassword, verifyPassword } from "@/lib/password";
 import { validate_user_pass } from "@/lib/users"
-import { hash } from "argon2";
-import { use } from "react";
 
 export default withSessionRoute(async (req, res) => {
   if (req.method === 'POST') {
@@ -20,10 +18,10 @@ export default withSessionRoute(async (req, res) => {
             await req.session.save();
             return res.status(200).json({ success: true, message: 'Logged in successfully' });
         }
-        return res.status(500).json({ error: 'Check your password' });
+        return res.status(500).json({ success: false, message: 'Check your password' });
     }
     else {
-      return res.status(500).json({ error: 'Invalid username or password' });
+      return res.status(500).json({ success: false, message: 'Invalid username' });
     }
   }
   else {
