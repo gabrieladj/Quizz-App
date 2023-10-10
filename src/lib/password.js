@@ -7,8 +7,12 @@ export async function hashPassword(password) {
 
 export async function verifyPassword(password, hashedPassword) {
     try {
-        const verified = await argon2.verify(hashedPassword, password)
-        return verified
+        if (await argon2.verify(hashedPassword, password)) {
+            return true;
+        }
+        else {
+            return false;
+        }
     } catch (error) {
         console.error(error)
         return false

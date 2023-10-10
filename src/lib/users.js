@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
+
 const prisma = new PrismaClient();
 
 export async function list_users() {
@@ -42,6 +43,19 @@ export async function getUsername(id){
     where: {id: id}
   });
   return (userStudent.username);
+}
+
+export async function validate_user_pass(username, password){
+  let userStudent =  await prisma.UserStudent.findUnique({
+    where: {
+      username,
+    }
+  });
+  if (userStudent)
+  {
+    return (userStudent);
+  }
+  else return null;
 }
 
 {/*
