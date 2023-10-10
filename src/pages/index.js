@@ -12,9 +12,18 @@ export default function Home(props){
   console.log("HomePage props: ")
   console.log(props);
   return (
-    <div>
-      <Navbar data={props}/>
-      <HomePage />
+    <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+      <Navbar data={props} />
+      <HomePage style={{ flex: 1 }} />
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      
       <Footer />
     </div>
 

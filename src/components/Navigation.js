@@ -57,6 +57,7 @@ export default function Navbar(props) {
       if (res.data.ok) {
         router.refresh();
       }
+    
     } catch (error) {
       console.log(error);
       if (error.response && error.response.data && error.response.data.message)
@@ -74,6 +75,9 @@ export default function Navbar(props) {
       if (res.data.success) {
         router.refresh();
       }
+
+      
+
     } catch (error) {
       console.log(error);
       if (error.response && error.response.data && error.response.data.message)
@@ -101,23 +105,28 @@ export default function Navbar(props) {
                 {!loggedIn &&
                     <li>
                         <div>
-                            <button onClick={() => setSignupVisible(!signupVisible)} className='text-white hover:underline hover:rounded-lg hover:bg-gray-500 p-2'>Sign Up</button>
+                            <button onClick={() => setSignupVisible(!signupVisible)} className='text-white bg-green-500 rounded-lg hover:underline hover:rounded-lg hover:bg-gray-500 p-2'>Sign Up</button>
                             {signupVisible && (
                                 <div>
                                     <form>
-                                        <label>Username:</label>
-                                        <input 
-                                            type="text"
-                                            value={signupUsername}
-                                            onChange={(e) => setSignupUsername(e.target.value)}
-                                        />
-                                        <label>Password:</label>
-                                        <input 
-                                            type="password"
-                                            value={signupPassword}
-                                            onChange={(e) => setSignupPassword(e.target.value)}
-                                        /> 
-                                        <button type="submit" onClick={handleSubmit}>Submit</button>
+                                        <div className='my-1'>
+                                            <label>Username:</label>
+                                            <input 
+                                                type="text"
+                                                value={signupUsername}
+                                                onChange={(e) => setSignupUsername(e.target.value)}
+                                            />
+                                            
+                                        </div>
+                                        <div>
+                                            <label>Password:</label>
+                                            <input 
+                                                type="password"
+                                                value={signupPassword}
+                                                onChange={(e) => setSignupPassword(e.target.value)}
+                                            /> 
+                                        </div>
+                                        <button type="submit" className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded' onClick={handleSubmit}>Submit</button>
                                     </form>
                                 </div>
                             )}
@@ -127,26 +136,30 @@ export default function Navbar(props) {
                 <li>
                     
                     {loggedIn
-                    ? (<button className='bg-blue-500 rounded-lg text-
+                    ? (<button className='bg-orange-500 rounded-lg text-
                     \white hover:underline hover:rounded-lg  hover:bg-gray-500 p-2' onClick={handleLogout}>Log Out</button>)
-                    : <> <button className='bg-blue-500 rounded-lg text-
+                    : <> <button className='bg-orange-500 rounded-lg text-
                     \white hover:underline hover:rounded-lg  hover:bg-gray-500 p-2' onClick={() => setSigninVisible(!signinVisible)}>Log In</button>
                     {signinVisible && (
                         <div>
                             <form>
-                                <label>Username:</label>
-                                <input 
-                                    type="text"
-                                    value={signinUsername}
-                                    onChange={(e) => setSigninUsername(e.target.value)}
-                                />
-                                <label>Password:</label>
-                                <input 
-                                    type="password"
-                                    value={signinPassword}
-                                    onChange={(e) => setSigninPassword(e.target.value)}
-                                /> 
-                                <button type="submit" onClick={handleSubmitLogin}>Submit</button>
+                                <div className='my-1'>
+                                    <label>Username:</label>
+                                    <input 
+                                        type="text"
+                                        value={signinUsername}
+                                        onChange={(e) => setSigninUsername(e.target.value)}
+                                    />
+                                </div>
+                                <div>
+                                    <label>Password:</label>
+                                    <input 
+                                        type="password"
+                                        value={signinPassword}
+                                        onChange={(e) => setSigninPassword(e.target.value)}
+                                    /> 
+                                </div>
+                                <button type="submit" className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded' onClick={handleSubmitLogin}>Submit</button>
                             </form>
                         </div>
                     )}</>
